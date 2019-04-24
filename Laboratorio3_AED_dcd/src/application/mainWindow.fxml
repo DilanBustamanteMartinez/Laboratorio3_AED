@@ -2,45 +2,35 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller">
    <children>
-      <Label fx:id="logo" layoutX="7.0" layoutY="1.0" prefHeight="106.0" prefWidth="678.0" />
-      <TabPane layoutX="4.0" layoutY="229.0" prefHeight="200.0" prefWidth="617.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Ingresar Datos  por archivo">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="725.0">
-                     <children>
-                        <Button layoutX="87.0" layoutY="39.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="189.0" text="SELECCIONAR ARCHIVO" />
-                        <TextField layoutX="289.0" layoutY="41.0" prefHeight="25.0" prefWidth="236.0" />
-                        <Button layoutX="197.0" layoutY="104.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="185.0" text="GUARDAR DATOS " />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Ingresar datos por campos">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="601.0">
-                     <children>
-                        <TextField layoutX="177.0" layoutY="29.0" prefWidth="113.0" />
-                        <Label layoutX="14.0" layoutY="33.0" text="INGRESAR CLAVE DE DATO " />
-                        <Button layoutX="97.0" layoutY="117.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="104.0" text="MODIFICAR " />
-                        <Button layoutX="395.0" layoutY="117.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="ELIMINAR " />
-                        <Label layoutX="14.0" layoutY="69.0" text="INGRESAR NUEVA CLAVE" />
-                        <TextField layoutX="177.0" layoutY="65.0" prefHeight="25.0" prefWidth="113.0" />
-                        <Separator layoutX="315.0" layoutY="20.0" orientation="VERTICAL" prefHeight="132.0" prefWidth="0.0" />
-                        <Label layoutX="337.0" layoutY="25.0" prefHeight="17.0" prefWidth="221.0" text="INGRESAR CLAVE DE DATO A ELIMINAR" />
-                        <TextField layoutX="387.0" layoutY="57.0" prefHeight="25.0" prefWidth="105.0" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
+      <GridPane layoutX="29.0" layoutY="252.0" prefHeight="247.0" prefWidth="675.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" prefHeight="85.0" prefWidth="150.0" text="Modificar Mercado" />
+            <Button layoutX="10.0" layoutY="21.0" mnemonicParsing="false" prefHeight="84.0" prefWidth="150.0" text="Agregar un archivo" GridPane.columnIndex="1" />
+            <Button layoutX="210.0" layoutY="40.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="150.0" text="Ver graficas" GridPane.columnIndex="3" />
+            <Button layoutX="10.0" layoutY="40.0" mnemonicParsing="false" prefHeight="84.0" prefWidth="150.0" text="Eliminar Mercado" GridPane.rowIndex="1" />
+            <Button layoutX="210.0" layoutY="40.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="150.0" text="Seleccionar archivo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button layoutX="410.0" layoutY="40.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="150.0" text="Ver estadisticas" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Button layoutX="160.0" layoutY="40.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="150.0" text="Consultar Mayor precio" GridPane.columnIndex="2" />
+            <Button layoutX="10.0" layoutY="40.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="150.0" text="Consultar Menor precio" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <Label fx:id="logo" layoutX="27.0" layoutY="21.0" prefHeight="119.0" prefWidth="612.0" />
    </children>
 </Pane>
