@@ -1,13 +1,13 @@
 package Model;
 
-public class Exchanges {
+public class Market {
 	
 	private String date;
 	private String hour;
 	private String value;
 	private String tipe;
 	
-	public Exchanges(String tipe,String date, String time, String value){
+	public Market(String tipe,String date, String time, String value){
 		
 		this.tipe = tipe;
 		this.date = date;

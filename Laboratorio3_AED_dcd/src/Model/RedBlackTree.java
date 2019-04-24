@@ -8,12 +8,16 @@ import Interfaces.IVertexBinaryTree;
 
 public class RedBlackTree<T extends Comparable<T>> extends BinaryTreesOrdered<T> {
 
+	
+	RedBlackTree(){
+		
+	}
 /**
  * Clase interna protegida para vértices de árboles rojinegros. La única
  * diferencia con los vértices de árbol binario, es que tienen un campo para
  * el color del vértice.
  */
-protected class VerticeRojinegro extends BinaryTree<T>.Vertex {
+protected class ARNVertex extends BinaryTree<T>.Vertex {
 
     /** El color del vértice. */
     public Color color;
@@ -22,7 +26,7 @@ protected class VerticeRojinegro extends BinaryTree<T>.Vertex {
      * Constructor único que recibe un elemento.
      * @param elemento el elemento del vértice.
      */
-    public VerticeRojinegro(T elemento) {
+    public ARNVertex(T elemento) {
         super(elemento);
         if (elemento == null) {
             this.color = color.BLACK;
@@ -47,14 +51,14 @@ protected class VerticeRojinegro extends BinaryTree<T>.Vertex {
      * @return <code>true</code> si arbol 1 y arbol 2
      *         son iguales; <code>false</code> en otro caso.
      */
-    private boolean equals(VerticeRojinegro v1, VerticeRojinegro v2) {
+    private boolean equals(ARNVertex v1, ARNVertex v2) {
         if (v1 == null && v2 == null) {
             return true;
         }
         if ((v1 == null && v2 != null) || (v1 != null && v2 == null) || !v1.element.equals(v2.element) || v1.color != v2.color) {
             return false;
         }
-        return equals(verticeRojinegro(v1.left), verticeRojinegro(v2.left)) && equals(verticeRojinegro(v1.right), verticeRojinegro(v2.right));
+        return equals(VertexARN(v1.left), VertexARN(v2.left)) && equals(VertexARN(v1.right), VertexARN(v2.right));
     }
 
     /**
@@ -62,7 +66,7 @@ protected class VerticeRojinegro extends BinaryTree<T>.Vertex {
      * <em>recursiva</em>.
      * @param o el objeto con el cual se comparará el vértice.
      * @return <code>true</code> si el objeto es instancia de la clase
-     *         {@link VerticeRojinegro}, su elemento es igual al elemento de
+     *         {@link ARNVertex}, su elemento es igual al elemento de
      *         éste vértice, los descendientes de ambos son recursivamente
      *         iguales, y los colores son iguales; <code>false</code> en
      *         otro caso.
@@ -72,35 +76,35 @@ protected class VerticeRojinegro extends BinaryTree<T>.Vertex {
             return false;
         if (getClass() != o.getClass())
             return false;
-        @SuppressWarnings("unchecked") VerticeRojinegro vertice = (VerticeRojinegro)o;
+        @SuppressWarnings("unchecked") ARNVertex vertice = (ARNVertex)o;
         return this.equals(this, vertice);
     }
 }
 
 /**
  * Construye un nuevo vértice, usando una instancia de {@link
- * VerticeRojinegro}.
+ * ARNVertex}.
  * @param elemento el elemento dentro del vértice.
  * @return un nuevo vértice rojinegro con el elemento recibido dentro del
  *         mismo.
  */
 @Override protected Vertex nuevoVertice(T elemento) {
-    return new VerticeRojinegro(elemento);
+    return new ARNVertex(elemento);
 }
 
 /**
  * Convierte el vértice (visto como instancia de {@link
  * IVertexBinaryTree}) en vértice (visto como instancia de {@link
- * VerticeRojinegro}). Método auxililar para hacer esta audición en un único
+ * ARNVertex}). Método auxililar para hacer esta audición en un único
  * lugar.
  * @param vertice el vértice de árbol binario que queremos como vértice
  *                rojinegro.
  * @return el vértice recibido visto como vértice rojinegro.
  * @throws ClassCastException si el vértice no es instancia de {@link
- *         VerticeRojinegro}.
+ *         ARNVertex}.
  */
-private VerticeRojinegro verticeRojinegro(IVertexBinaryTree<T> vertice) {
-    VerticeRojinegro v = (VerticeRojinegro)vertice;
+private ARNVertex VertexARN(IVertexBinaryTree<T> vertice) {
+    ARNVertex v = (ARNVertex)vertice;
     return v;
 }
 
@@ -109,10 +113,10 @@ private VerticeRojinegro verticeRojinegro(IVertexBinaryTree<T> vertice) {
  * @param vertice el vértice del que queremos el color.
  * @return el color del vértice rojinegro.
  * @throws ClassCastException si el vértice no es instancia de {@link
- *         VerticeRojinegro}.
+ *         ARNVertex}.
  */
 public Color getColor(IVertexBinaryTree<T> vertice) {
-    VerticeRojinegro verticeRN = this.verticeRojinegro(vertice);
+    ARNVertex verticeRN = this.VertexARN(vertice);
     return verticeRN.color;
 }
 
@@ -140,24 +144,24 @@ private boolean esHijoDerecho(Vertex v) {
     return v.father.right == v;
 }
 
-private void rebalanceoAgrega (VerticeRojinegro vertice) {
-    VerticeRojinegro padre, tio, abuelo, aux;
+private void rebalanceoAgrega (ARNVertex vertice) {
+    ARNVertex padre, tio, abuelo, aux;
     // Caso 1
     if (!vertice.isFather()) {
         vertice.color = Color.BLACK;
         return;
     }
     // Caso 2
-    padre = this.verticeRojinegro(vertice.father);
+    padre = this.VertexARN(vertice.father);
     if (padre.color == Color.BLACK) {
         return;
     }
     // Caso 3
-    abuelo = this.verticeRojinegro(padre.father);
+    abuelo = this.VertexARN(padre.father);
     if (this.esHijoIzquierdo(padre)) {
-        tio = this.verticeRojinegro(abuelo.right);
+        tio = this.VertexARN(abuelo.right);
     } else {
-        tio = this.verticeRojinegro(abuelo.left);
+        tio = this.VertexARN(abuelo.left);
     }
     if (tio != null && tio.color == Color.RED) {
         tio.color = Color.BLACK;
@@ -194,9 +198,9 @@ private void rebalanceoAgrega (VerticeRojinegro vertice) {
  * @param elemento el elemento a agregar.
  */
 @Override public void add(T elemento) {
-    VerticeRojinegro ultimoAgregadoRN;
+    ARNVertex ultimoAgregadoRN;
     super.add(elemento);
-    ultimoAgregadoRN = this.verticeRojinegro(this.ultimoAgregado);
+    ultimoAgregadoRN = this.VertexARN(this.ultimoAgregado);
     this.rebalanceoAgrega(ultimoAgregadoRN);
 }
 
@@ -259,7 +263,7 @@ private void eliminaSinHijoDerecho(Vertex eliminar) {
  * @param v2 VerticeRojinegro
  * @return <code> true </code> si lo es. <code> false </code> en otro caso.
  */
-private boolean sonVerticesBicoloreados(VerticeRojinegro v1, VerticeRojinegro v2) {
+private boolean sonVerticesBicoloreados(ARNVertex v1, ARNVertex v2) {
     return this.esNegro(v1) != this.esNegro(v2);
 }
 
@@ -280,11 +284,11 @@ private void subirUnicoHijo(Vertex padre) {
  * @param padre vertice de quien queremos su hijo
  * @return unico hijo de padre
  */
-private VerticeRojinegro getUnicoHijo(VerticeRojinegro padre) {
+private ARNVertex getUnicoHijo(ARNVertex padre) {
     if (padre.LeftSon()) {
-        return verticeRojinegro(padre.left);
+        return VertexARN(padre.left);
     }
-    return verticeRojinegro(padre.right);
+    return VertexARN(padre.right);
 }
 
 /**
@@ -292,11 +296,11 @@ private VerticeRojinegro getUnicoHijo(VerticeRojinegro padre) {
  * @param vertice de quien se quiere obtener su hermano.
  * @return La referencia del vertice que es hermano del vertice.
  **/
-private VerticeRojinegro getHermano(VerticeRojinegro vertice) {
+private ARNVertex getHermano(ARNVertex vertice) {
     if (this.esHijoIzquierdo(vertice)) {
-        return verticeRojinegro(vertice.father.right);
+        return VertexARN(vertice.father.right);
     }
-    return verticeRojinegro(vertice.father.left);
+    return VertexARN(vertice.father.left);
 }
 
 /**
@@ -306,7 +310,7 @@ private VerticeRojinegro getHermano(VerticeRojinegro vertice) {
  * @return <code>true</code> si el vertice es negro, <code>false</code>
  * cualquier otra cosa.
  **/
-private boolean esNegro(VerticeRojinegro vertice) {
+private boolean esNegro(ARNVertex vertice) {
     return vertice == null || vertice.color == Color.BLACK;
 }
 
@@ -315,8 +319,8 @@ private boolean esNegro(VerticeRojinegro vertice) {
  * el metodo de elimina. Se divide en 6 casos.
  * @param vertice VerticeRojiNegro desde donde se va a balancear.
  **/
-private void rebalanceoElimina(VerticeRojinegro vertice) {
-    VerticeRojinegro hermano, padre, sobrinoIzq, sobrinoDer;
+private void rebalanceoElimina(ARNVertex vertice) {
+    ARNVertex hermano, padre, sobrinoIzq, sobrinoDer;
     /**
      * Caso 1
      *
@@ -329,7 +333,7 @@ private void rebalanceoElimina(VerticeRojinegro vertice) {
         // Terminamos
         return;
     }
-    padre = verticeRojinegro(vertice.father);
+    padre = VertexARN(vertice.father);
     hermano = this.getHermano(vertice);
     /**
      * Caso 2
@@ -349,11 +353,11 @@ private void rebalanceoElimina(VerticeRojinegro vertice) {
             super.RightRotate(padre);
         }
         // Cambiamos referencias de padre y hermano.
-        padre = verticeRojinegro(vertice.father);
+        padre = VertexARN(vertice.father);
         hermano = this.getHermano(vertice);
     }
-    sobrinoIzq = verticeRojinegro(hermano.left);
-    sobrinoDer = verticeRojinegro(hermano.right);
+    sobrinoIzq = VertexARN(hermano.left);
+    sobrinoDer = VertexARN(hermano.right);
     /**
      * Caso 3
      *
@@ -406,8 +410,8 @@ private void rebalanceoElimina(VerticeRojinegro vertice) {
             super.LeftRotate(hermano);
         }
         hermano = this.getHermano(vertice);
-        sobrinoIzq = verticeRojinegro(hermano.left);
-        sobrinoDer = verticeRojinegro(hermano.right);
+        sobrinoIzq = VertexARN(hermano.left);
+        sobrinoDer = VertexARN(hermano.right);
     }
     /**
      * Caso 6
@@ -437,7 +441,7 @@ private void rebalanceoElimina(VerticeRojinegro vertice) {
  * Auxiliar de Elimina. Elimina el posible vertice fantasma que pueda haber.
  * @param eliminar VerticeRojinegro que queremos ver si es fantasma
  **/
-private void eliminarFantasma(VerticeRojinegro eliminar) {
+private void eliminarFantasma(ARNVertex eliminar) {
     if (eliminar.element == null) {
         eliminaHoja(eliminar);
     }
@@ -450,9 +454,9 @@ private void eliminarFantasma(VerticeRojinegro eliminar) {
  * @param elemento el elemento a eliminar del árbol.
  */
 @Override public void delete(T elemento) {
-    VerticeRojinegro aux, hijo;
+    ARNVertex aux, hijo;
     // Buscamos el vertice que tiene el elemento que queremos eliminar.
-    VerticeRojinegro eliminar = this.verticeRojinegro(super.busca(elemento));
+    ARNVertex eliminar = this.VertexARN(super.busca(elemento));
     // Si no lo encontro, simplemente terminamos.
     if (eliminar == null) {
         return;
@@ -461,7 +465,7 @@ private void eliminarFantasma(VerticeRojinegro eliminar) {
     if (eliminar.LeftSon()) {
         // Obtenemos el Vertice que es maximo en el subarbol izquierdo del vertice que
         // queremos eliminar.
-        aux = verticeRojinegro(MaxSubtree(eliminar.left));
+        aux = VertexARN(MaxSubtree(eliminar.left));
         // Intercambiamos el elemento que tiene el vertice que queremos eliminar
         // con el del maximo en el subarbol izquierdo.
         eliminar.element = aux.element;
