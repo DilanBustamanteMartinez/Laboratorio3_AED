@@ -449,7 +449,7 @@ private void eliminarFantasma(VerticeRojinegro eliminar) {
  * rebalancearlo.
  * @param elemento el elemento a eliminar del árbol.
  */
-@Override public void elimina(T elemento) {
+@Override public void delete(T elemento) {
     VerticeRojinegro aux, hijo;
     // Buscamos el vertice que tiene el elemento que queremos eliminar.
     VerticeRojinegro eliminar = this.verticeRojinegro(super.busca(elemento));

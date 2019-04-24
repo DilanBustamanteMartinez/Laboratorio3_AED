@@ -12,7 +12,7 @@ package Interfaces;
 	     * Elimina un elemento de la colección.
 	     * @param elemento el elemento a eliminar.
 	     */
-	    public void elimina(T elemento);
+	    public void delete(T elemento);
 
 	    /**
 	     * Nos dice si un elemento está contenido en la colección.

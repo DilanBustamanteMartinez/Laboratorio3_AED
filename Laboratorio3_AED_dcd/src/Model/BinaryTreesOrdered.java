@@ -194,7 +194,7 @@ private void eliminaSinHijoDerecho(Vertex eliminar) {
  * conserva su orden in-order.
  * @param elemento el elemento a eliminar.
  */
-@Override public void elimina(T elemento) {
+@Override public void delete(T elemento) {
     Vertex eliminar = this.busca(this.raiz, elemento), vi;
     if (eliminar == null) {
         return;
