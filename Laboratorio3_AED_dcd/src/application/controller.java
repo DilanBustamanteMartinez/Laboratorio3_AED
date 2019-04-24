@@ -43,7 +43,43 @@ public class controller {
 	
 	}
 	
+	public void modifyMarket() {
+		
+	}
 	
+	
+	public void deleteMarket() {
+		
+	}
+	
+	
+	public void addFile () {
+		
+	}
+	
+	
+	public void selectFile() {
+		
+	}
+	
+	
+	public void consultHigherPrice() {
+		
+	}
+	
+	public void consultLessPrice() {
+		
+	}
+	
+	public void watchGraphics() {
+		
+	}
+	
+	public void watchStatistics() {
+		
+	}
 	
 
 }
+
+	
