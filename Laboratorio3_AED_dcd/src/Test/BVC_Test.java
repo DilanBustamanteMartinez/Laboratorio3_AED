@@ -2,7 +2,7 @@ package Test;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import Model.Principal;
+import Model.Main;
 
 public class BVC_Test {
 

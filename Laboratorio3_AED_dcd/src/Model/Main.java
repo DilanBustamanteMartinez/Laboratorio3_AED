@@ -1,13 +1,13 @@
 package Model;
 
-public class Principal {
+public class Main {
 	
 	private RedBlackTree exchanges;
 	private TreeAVL capital;
 	
 
-public Principal() {
-		super();
+public Main() {
+	
 		this.exchanges = new RedBlackTree<String>();
 		this.capital = new TreeAVL<String>();
 	}
@@ -52,7 +52,7 @@ public void modifyMarket() {
 	public static void main(String[] args){
 		
 		
-		Principal main = new Principal();
+		Main main = new Main();
 	}
 	
 }
