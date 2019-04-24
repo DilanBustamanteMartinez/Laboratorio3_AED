@@ -10,4 +10,3 @@ public interface IVertexBinaryTree<T> {
     public IVertexBinaryTree<T> getRight();
     public T get();
 }
-
