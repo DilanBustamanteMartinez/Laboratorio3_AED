@@ -27,8 +27,7 @@ public class controller {
 	private Button watchGraphics;
 	@FXML
 	private Button watchStatistics;
-	
-	
+
 	
 	public controller() {
 		
