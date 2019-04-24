@@ -169,9 +169,9 @@ private void rebalanceoAgrega (VerticeRojinegro vertice) {
     // Caso 4
     if (this.esHijoIzquierdo(vertice) != this.esHijoIzquierdo(padre)) {
         if (this.esHijoIzquierdo(padre)) {
-            super.giraIzquierda(padre);
+            super.LeftRotate(padre);
         } else {
-            super.giraDerecha(padre);
+            super.RightRotate(padre);
         }
         aux = padre;
         padre = vertice;
@@ -181,9 +181,9 @@ private void rebalanceoAgrega (VerticeRojinegro vertice) {
     padre.color = Color.BLACK;
     abuelo.color = Color.RED;
     if (this.esHijoIzquierdo(vertice)) {
-        this.giraDerecha(abuelo);
+        this.RightRotate(abuelo);
     } else {
-        this.giraIzquierda(abuelo);
+        this.LeftRotate(abuelo);
     }
 }
 
@@ -344,9 +344,9 @@ private void rebalanceoElimina(VerticeRojinegro vertice) {
         padre.color = Color.RED;
         // Giramos sobre al padre en la direccion del vertice.
         if (this.esHijoIzquierdo(vertice)) {
-            super.giraIzquierda(padre);
+            super.LeftRotate(padre);
         } else {
-            super.giraDerecha(padre);
+            super.RightRotate(padre);
         }
         // Cambiamos referencias de padre y hermano.
         padre = verticeRojinegro(vertice.father);
@@ -401,9 +401,9 @@ private void rebalanceoElimina(VerticeRojinegro vertice) {
         hermano.color = Color.RED;
         //Giramos sobre el hermano en la direccion contraria al vertice
         if (this.esHijoIzquierdo(vertice)) {
-            super.giraDerecha(hermano);
+            super.RightRotate(hermano);
         } else {
-            super.giraIzquierda(hermano);
+            super.LeftRotate(hermano);
         }
         hermano = this.getHermano(vertice);
         sobrinoIzq = verticeRojinegro(hermano.left);
@@ -427,9 +427,9 @@ private void rebalanceoElimina(VerticeRojinegro vertice) {
     }
     // Giramos sobre el padre en la direccion del vertice
     if (this.esHijoIzquierdo(vertice)) {
-        super.giraIzquierda(padre);
+        super.LeftRotate(padre);
     } else {
-        super.giraDerecha(padre);
+        super.RightRotate(padre);
     }
 }
 
@@ -461,7 +461,7 @@ private void eliminarFantasma(VerticeRojinegro eliminar) {
     if (eliminar.LeftSon()) {
         // Obtenemos el Vertice que es maximo en el subarbol izquierdo del vertice que
         // queremos eliminar.
-        aux = verticeRojinegro(maximoEnSubarbol(eliminar.left));
+        aux = verticeRojinegro(MaxSubtree(eliminar.left));
         // Intercambiamos el elemento que tiene el vertice que queremos eliminar
         // con el del maximo en el subarbol izquierdo.
         eliminar.element = aux.element;

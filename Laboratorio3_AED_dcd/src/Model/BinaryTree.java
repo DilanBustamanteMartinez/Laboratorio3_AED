@@ -1,9 +1,9 @@
 package Model;
 import java.util.NoSuchElementException;
 
-import Interfaces.Coleccion;
+import Interfaces.Colection;
 import Interfaces.IVertexBinaryTree;
-public abstract class BinaryTree<T> implements Coleccion<T> {
+public abstract class BinaryTree<T> implements Colection<T> {
 
     /**
      * Clase interna protegida para vértices.
@@ -161,7 +161,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      * @param coleccion la colección a partir de la cual creamos el árbol
      *        binario.
      */
-    public BinaryTree(Coleccion<T> coleccion) {
+    public BinaryTree(Colection<T> coleccion) {
         for(T e:coleccion) {
             this.add(e);
         }
@@ -200,7 +200,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      * Regresa el número de elementos que se han agregado al árbol.
      * @return el número de elementos en el árbol.
      */
-    public int getElementos() {
+    public int getElements() {
         return this.elementos;
     }
 
@@ -235,7 +235,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      * @return <code>true</code> si el elemento está en el árbol;
      *         <code>false</code> en otro caso.
      */
-    @Override public boolean contiene(T elemento) {
+    @Override public boolean contain(T elemento) {
         return contiene(elemento, this.raiz);
     }
 
@@ -248,7 +248,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      */
     public IVertexBinaryTree<T> busca(T elemento) {
         /* Busca recursivamente. */
-        return busca(raiz, elemento);
+        return search(raiz, elemento);
     }
 
     /**
@@ -259,15 +259,15 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      * @return el vértice que contiene el elemento a buscar, si se encuentra en
      *         el árbol; <code>null</code> en otro caso.
      */
-    protected Vertex busca(Vertex vertice, T elemento) {
+    protected Vertex search(Vertex vertice, T elemento) {
         if (vertice == null) {
             return null;
         }
         if (vertice.element.equals(elemento)) {
             return vertice;
         }
-        Vertex iz = busca(vertice.left, elemento);
-        return ((iz != null) ? iz : busca(vertice.right, elemento));
+        Vertex iz = search(vertice.left, elemento);
+        return ((iz != null) ? iz : search(vertice.right, elemento));
     }
 
     /**
@@ -276,7 +276,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      * @throws NoSuchElementException si el árbol es vacío.
      */
     public IVertexBinaryTree<T> raiz() {
-        if (this.esVacio()) {
+        if (this.isEmpty()) {
             throw new NoSuchElementException();
         }
         return this.raiz;
@@ -286,7 +286,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      * Regresa el número de elementos en el árbol.
      * @return el número de elementos en el árbol.
      */
-    @Override public boolean esVacio() {
+    @Override public boolean isEmpty() {
         return this.raiz == null;
     }
 
@@ -302,8 +302,8 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
         if (getClass() != o.getClass())
             return false;
         @SuppressWarnings("unchecked") BinaryTree<T> arbol = (BinaryTree<T>)o;
-        if (this.esVacio()) {
-            return arbol.esVacio();
+        if (this.isEmpty()) {
+            return arbol.isEmpty();
         }
         return this.raiz.equals(arbol.raiz);
     }
