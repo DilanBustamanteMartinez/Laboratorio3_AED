@@ -6,17 +6,17 @@ import Interfaces.Coleccion;
 import Interfaces.VerticeArbolBinario;
 
 public class BinaryTreesOrdered<T extends Comparable<T>>
-extends ArbolBinario<T> {
+extends BinaryTree<T> {
 
 /* Clase privada para iteradores de árboles binarios ordenados. */
 private class Iterador implements Iterator<T> {
 
     /* Pila para emular la pila de ejecución. */
-    private Pila<ArbolBinario<T>.Vertice> pila;
+    private Pila<BinaryTree<T>.Vertice> pila;
 
     /* Construye un iterador con el vértice recibido. */
     public Iterador() {
-        pila = new Pila<ArbolBinario<T>.Vertice>();
+        pila = new Pila<BinaryTree<T>.Vertice>();
         if (esVacio()) {
             return;
         }
@@ -54,7 +54,7 @@ private class Iterador implements Iterator<T> {
 
 /**
  * Constructor sin parámetros. Para no perder el constructor sin parámetros
- * de {@link ArbolBinario}.
+ * de {@link BinaryTree}.
  */
 public BinaryTreesOrdered() { super(); }
 

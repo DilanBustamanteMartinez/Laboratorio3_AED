@@ -3,7 +3,7 @@ import java.util.NoSuchElementException;
 
 import Interfaces.Coleccion;
 import Interfaces.VerticeArbolBinario;
-public abstract class ArbolBinario<T> implements Coleccion<T> {
+public abstract class BinaryTree<T> implements Coleccion<T> {
 
     /**
      * Clase interna protegida para vértices.
@@ -153,7 +153,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
     /**
      * Constructor sin parámetros. Para no perder el constructor sin parámetros.
      */
-    public ArbolBinario() {}
+    public BinaryTree() {}
 
     /**
      * Construye un árbol binario a partir de una colección. El árbol binario
@@ -161,7 +161,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
      * @param coleccion la colección a partir de la cual creamos el árbol
      *        binario.
      */
-    public ArbolBinario(Coleccion<T> coleccion) {
+    public BinaryTree(Coleccion<T> coleccion) {
         for(T e:coleccion) {
             this.agrega(e);
         }
@@ -301,7 +301,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
             return false;
         if (getClass() != o.getClass())
             return false;
-        @SuppressWarnings("unchecked") ArbolBinario<T> arbol = (ArbolBinario<T>)o;
+        @SuppressWarnings("unchecked") BinaryTree<T> arbol = (BinaryTree<T>)o;
         if (this.esVacio()) {
             return arbol.esVacio();
         }

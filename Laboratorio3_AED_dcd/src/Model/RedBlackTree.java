@@ -13,7 +13,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTreesOrdered<T>
  * diferencia con los vértices de árbol binario, es que tienen un campo para
  * el color del vértice.
  */
-protected class VerticeRojinegro extends ArbolBinario<T>.Vertice {
+protected class VerticeRojinegro extends BinaryTree<T>.Vertice {
 
     /** El color del vértice. */
     public Color color;
