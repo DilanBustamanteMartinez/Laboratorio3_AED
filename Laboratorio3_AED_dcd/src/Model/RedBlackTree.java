@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.List;
 
 import Interfaces.IredBlackTree;
-import Interfaces.VerticeArbolBinario;
+import Interfaces.IVertexBinaryTree;
 
 public class RedBlackTree<T extends Comparable<T>> extends BinaryTreesOrdered<T> {
 
@@ -13,7 +13,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTreesOrdered<T>
  * diferencia con los vértices de árbol binario, es que tienen un campo para
  * el color del vértice.
  */
-protected class VerticeRojinegro extends BinaryTree<T>.Vertice {
+protected class VerticeRojinegro extends BinaryTree<T>.Vertex {
 
     /** El color del vértice. */
     public Color color;
@@ -36,7 +36,7 @@ protected class VerticeRojinegro extends BinaryTree<T>.Vertice {
      * @return una representación en cadena del vértice rojinegro.
      */
     public String toString() {
-        return ((esNegro(this)) ? "N":"R") + "{" +  ((this.elemento == null) ? "null":this.elemento.toString()) + "}";
+        return ((esNegro(this)) ? "N":"R") + "{" +  ((this.element == null) ? "null":this.element.toString()) + "}";
         // Aquí va su código.
     }
 
@@ -51,10 +51,10 @@ protected class VerticeRojinegro extends BinaryTree<T>.Vertice {
         if (v1 == null && v2 == null) {
             return true;
         }
-        if ((v1 == null && v2 != null) || (v1 != null && v2 == null) || !v1.elemento.equals(v2.elemento) || v1.color != v2.color) {
+        if ((v1 == null && v2 != null) || (v1 != null && v2 == null) || !v1.element.equals(v2.element) || v1.color != v2.color) {
             return false;
         }
-        return equals(verticeRojinegro(v1.izquierdo), verticeRojinegro(v2.izquierdo)) && equals(verticeRojinegro(v1.derecho), verticeRojinegro(v2.derecho));
+        return equals(verticeRojinegro(v1.left), verticeRojinegro(v2.left)) && equals(verticeRojinegro(v1.right), verticeRojinegro(v2.right));
     }
 
     /**
@@ -84,13 +84,13 @@ protected class VerticeRojinegro extends BinaryTree<T>.Vertice {
  * @return un nuevo vértice rojinegro con el elemento recibido dentro del
  *         mismo.
  */
-@Override protected Vertice nuevoVertice(T elemento) {
+@Override protected Vertex nuevoVertice(T elemento) {
     return new VerticeRojinegro(elemento);
 }
 
 /**
  * Convierte el vértice (visto como instancia de {@link
- * VerticeArbolBinario}) en vértice (visto como instancia de {@link
+ * IVertexBinaryTree}) en vértice (visto como instancia de {@link
  * VerticeRojinegro}). Método auxililar para hacer esta audición en un único
  * lugar.
  * @param vertice el vértice de árbol binario que queremos como vértice
@@ -99,7 +99,7 @@ protected class VerticeRojinegro extends BinaryTree<T>.Vertice {
  * @throws ClassCastException si el vértice no es instancia de {@link
  *         VerticeRojinegro}.
  */
-private VerticeRojinegro verticeRojinegro(VerticeArbolBinario<T> vertice) {
+private VerticeRojinegro verticeRojinegro(IVertexBinaryTree<T> vertice) {
     VerticeRojinegro v = (VerticeRojinegro)vertice;
     return v;
 }
@@ -111,7 +111,7 @@ private VerticeRojinegro verticeRojinegro(VerticeArbolBinario<T> vertice) {
  * @throws ClassCastException si el vértice no es instancia de {@link
  *         VerticeRojinegro}.
  */
-public Color getColor(VerticeArbolBinario<T> vertice) {
+public Color getColor(IVertexBinaryTree<T> vertice) {
     VerticeRojinegro verticeRN = this.verticeRojinegro(vertice);
     return verticeRN.color;
 }
@@ -121,11 +121,11 @@ public Color getColor(VerticeArbolBinario<T> vertice) {
  * @param v vertice que se verifica.
  * @throws <code> true </code> si lo es. <code> false </code> en otro caso.
  */    
-private boolean esHijoIzquierdo(Vertice v) {
-    if (!v.hayPadre()) {
+private boolean esHijoIzquierdo(Vertex v) {
+    if (!v.isFather()) {
         return false;
     }
-    return v.padre.izquierdo == v;
+    return v.father.left == v;
 }
 
 /**
@@ -133,31 +133,31 @@ private boolean esHijoIzquierdo(Vertice v) {
  * @param v vertice que se verifica.
  * @throws <code> true </code> si lo es. <code> false </code> en otro caso.
  */    
-private boolean esHijoDerecho(Vertice v) {
-    if (!v.hayPadre()) {
+private boolean esHijoDerecho(Vertex v) {
+    if (!v.isFather()) {
         return false;
     }
-    return v.padre.derecho == v;
+    return v.father.right == v;
 }
 
 private void rebalanceoAgrega (VerticeRojinegro vertice) {
     VerticeRojinegro padre, tio, abuelo, aux;
     // Caso 1
-    if (!vertice.hayPadre()) {
+    if (!vertice.isFather()) {
         vertice.color = Color.BLACK;
         return;
     }
     // Caso 2
-    padre = this.verticeRojinegro(vertice.padre);
+    padre = this.verticeRojinegro(vertice.father);
     if (padre.color == Color.BLACK) {
         return;
     }
     // Caso 3
-    abuelo = this.verticeRojinegro(padre.padre);
+    abuelo = this.verticeRojinegro(padre.father);
     if (this.esHijoIzquierdo(padre)) {
-        tio = this.verticeRojinegro(abuelo.derecho);
+        tio = this.verticeRojinegro(abuelo.right);
     } else {
-        tio = this.verticeRojinegro(abuelo.izquierdo);
+        tio = this.verticeRojinegro(abuelo.left);
     }
     if (tio != null && tio.color == Color.RED) {
         tio.color = Color.BLACK;
@@ -204,14 +204,14 @@ private void rebalanceoAgrega (VerticeRojinegro vertice) {
  * Auxiliar de elimina. Elimina una hoja.
  * @param eliminar el elemento a eliminar que debe ser hoja.
  */
-private void eliminaHoja(Vertice eliminar) {
+private void eliminaHoja(Vertex eliminar) {
     if (this.raiz == eliminar) {
         this.raiz = null;
         this.ultimoAgregado = null;
     } else if (this.esHijoIzquierdo(eliminar)) {
-        eliminar.padre.izquierdo = null;
+        eliminar.father.left = null;
     } else {
-        eliminar.padre.derecho = null;
+        eliminar.father.right = null;
     }
 }
 
@@ -219,16 +219,16 @@ private void eliminaHoja(Vertice eliminar) {
  * Auxiliar de elimina. Elimina vertice que no tiene hijo izquierdo.
  * @param eliminar el elemento a eliminar que debe no tener hijo izquierdo.
  */
-private void eliminaSinHijoIzquierdo(Vertice eliminar) {
+private void eliminaSinHijoIzquierdo(Vertex eliminar) {
     if (this.raiz == eliminar) {
-        this.raiz = this.raiz.derecho;
-        eliminar.derecho.padre = null;
+        this.raiz = this.raiz.right;
+        eliminar.right.father = null;
     } else {
-        eliminar.derecho.padre = eliminar.padre;
+        eliminar.right.father = eliminar.father;
         if (this.esHijoIzquierdo(eliminar)) {
-            eliminar.padre.izquierdo = eliminar.derecho;
+            eliminar.father.left = eliminar.right;
         } else {
-            eliminar.padre.derecho = eliminar.derecho;
+            eliminar.father.right = eliminar.right;
         }
     }
     this.elementos--;
@@ -238,16 +238,16 @@ private void eliminaSinHijoIzquierdo(Vertice eliminar) {
  * Auxiliar de elimina. Elimina vertice que no tiene hijo derecho.
  * @param eliminar el elemento a eliminar que debe no tener hijo derecho.
  */
-private void eliminaSinHijoDerecho(Vertice eliminar) {
+private void eliminaSinHijoDerecho(Vertex eliminar) {
     if (this.raiz == eliminar) {
-        this.raiz = this.raiz.izquierdo;
-        eliminar.izquierdo.padre = null;
+        this.raiz = this.raiz.left;
+        eliminar.left.father = null;
     } else {
-        eliminar.izquierdo.padre = eliminar.padre;
+        eliminar.left.father = eliminar.father;
         if (this.esHijoIzquierdo(eliminar)) {
-            eliminar.padre.izquierdo = eliminar.izquierdo;
+            eliminar.father.left = eliminar.left;
         } else {
-            eliminar.padre.derecho = eliminar.izquierdo;
+            eliminar.father.right = eliminar.left;
         }
     }
     this.elementos--;
@@ -267,8 +267,8 @@ private boolean sonVerticesBicoloreados(VerticeRojinegro v1, VerticeRojinegro v2
  * Auxiliar de Elimina. Sube el unico vertice que puede tener el vertice padre.
  * @param padre Vertice que sera remplazado por su unico hijo.
  **/
-private void subirUnicoHijo(Vertice padre) {
-    if (!padre.hayIzquierdo()) {
+private void subirUnicoHijo(Vertex padre) {
+    if (!padre.LeftSon()) {
         this.eliminaSinHijoIzquierdo(padre);
     } else {
         this.eliminaSinHijoDerecho(padre);
@@ -281,10 +281,10 @@ private void subirUnicoHijo(Vertice padre) {
  * @return unico hijo de padre
  */
 private VerticeRojinegro getUnicoHijo(VerticeRojinegro padre) {
-    if (padre.hayIzquierdo()) {
-        return verticeRojinegro(padre.izquierdo);
+    if (padre.LeftSon()) {
+        return verticeRojinegro(padre.left);
     }
-    return verticeRojinegro(padre.derecho);
+    return verticeRojinegro(padre.right);
 }
 
 /**
@@ -294,9 +294,9 @@ private VerticeRojinegro getUnicoHijo(VerticeRojinegro padre) {
  **/
 private VerticeRojinegro getHermano(VerticeRojinegro vertice) {
     if (this.esHijoIzquierdo(vertice)) {
-        return verticeRojinegro(vertice.padre.derecho);
+        return verticeRojinegro(vertice.father.right);
     }
-    return verticeRojinegro(vertice.padre.izquierdo);
+    return verticeRojinegro(vertice.father.left);
 }
 
 /**
@@ -323,13 +323,13 @@ private void rebalanceoElimina(VerticeRojinegro vertice) {
      * El padre es null
      *
      **/
-    if (!vertice.hayPadre()) {
+    if (!vertice.isFather()) {
         // Asignamos la raiz al vertice.
         this.raiz = vertice;
         // Terminamos
         return;
     }
-    padre = verticeRojinegro(vertice.padre);
+    padre = verticeRojinegro(vertice.father);
     hermano = this.getHermano(vertice);
     /**
      * Caso 2
@@ -349,11 +349,11 @@ private void rebalanceoElimina(VerticeRojinegro vertice) {
             super.giraDerecha(padre);
         }
         // Cambiamos referencias de padre y hermano.
-        padre = verticeRojinegro(vertice.padre);
+        padre = verticeRojinegro(vertice.father);
         hermano = this.getHermano(vertice);
     }
-    sobrinoIzq = verticeRojinegro(hermano.izquierdo);
-    sobrinoDer = verticeRojinegro(hermano.derecho);
+    sobrinoIzq = verticeRojinegro(hermano.left);
+    sobrinoDer = verticeRojinegro(hermano.right);
     /**
      * Caso 3
      *
@@ -406,8 +406,8 @@ private void rebalanceoElimina(VerticeRojinegro vertice) {
             super.giraIzquierda(hermano);
         }
         hermano = this.getHermano(vertice);
-        sobrinoIzq = verticeRojinegro(hermano.izquierdo);
-        sobrinoDer = verticeRojinegro(hermano.derecho);
+        sobrinoIzq = verticeRojinegro(hermano.left);
+        sobrinoDer = verticeRojinegro(hermano.right);
     }
     /**
      * Caso 6
@@ -438,7 +438,7 @@ private void rebalanceoElimina(VerticeRojinegro vertice) {
  * @param eliminar VerticeRojinegro que queremos ver si es fantasma
  **/
 private void eliminarFantasma(VerticeRojinegro eliminar) {
-    if (eliminar.elemento == null) {
+    if (eliminar.element == null) {
         eliminaHoja(eliminar);
     }
 }
@@ -458,22 +458,22 @@ private void eliminarFantasma(VerticeRojinegro eliminar) {
         return;
     }
     // Si tiene hijo izquierdo.
-    if (eliminar.hayIzquierdo()) {
+    if (eliminar.LeftSon()) {
         // Obtenemos el Vertice que es maximo en el subarbol izquierdo del vertice que
         // queremos eliminar.
-        aux = verticeRojinegro(maximoEnSubarbol(eliminar.izquierdo));
+        aux = verticeRojinegro(maximoEnSubarbol(eliminar.left));
         // Intercambiamos el elemento que tiene el vertice que queremos eliminar
         // con el del maximo en el subarbol izquierdo.
-        eliminar.elemento = aux.elemento;
+        eliminar.element = aux.element;
         // Ahora ya queremos eliminar al maximo del subarbol izquierdo.
         eliminar = aux;
     }
     // Vertificamos si el que queremos eliminar es hoja.
-    if (!eliminar.hayIzquierdo() && !eliminar.hayDerecho()) {
+    if (!eliminar.LeftSon() && !eliminar.RightSon()) {
         // Creamos un vertice fantasma y lo ponemos como hijo del vertice que queremos
         // eliminar.
-        eliminar.izquierdo = this.nuevoVertice(null);
-        eliminar.izquierdo.padre = eliminar;
+        eliminar.left = this.nuevoVertice(null);
+        eliminar.left.father = eliminar;
     }
     // En esta parte el vertice que queremos eliminar siempre tiene solo un hijo.
     // Obtenemos el unico hijo que tiene el vertice que queremos eliminar.

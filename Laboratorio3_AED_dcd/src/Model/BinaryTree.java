@@ -2,29 +2,29 @@ package Model;
 import java.util.NoSuchElementException;
 
 import Interfaces.Coleccion;
-import Interfaces.VerticeArbolBinario;
+import Interfaces.IVertexBinaryTree;
 public abstract class BinaryTree<T> implements Coleccion<T> {
 
     /**
      * Clase interna protegida para vértices.
      */
-    protected class Vertice implements VerticeArbolBinario<T> {
+    protected class Vertex implements IVertexBinaryTree<T> {
 
         /** El elemento del vértice. */
-        public T elemento;
+        public T element;
         /** El padre del vértice. */
-        public Vertice padre;
+        public Vertex father;
         /** El izquierdo del vértice. */
-        public Vertice izquierdo;
+        public Vertex left;
         /** El derecho del vértice. */
-        public Vertice derecho;
+        public Vertex right;
 
         /**
          * Constructor único que recibe un elemento.
          * @param elemento el elemento del vértice.
          */
-        public Vertice(T elemento) {
-            this.elemento = elemento;
+        public Vertex(T element) {
+            this.element = element;
         }
 
         /**
@@ -32,7 +32,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
          * @return una representación en cadena del vértice.
          */
         public String toString() {
-            return this.elemento.toString();
+            return this.element.toString();
         }
 
         /**
@@ -40,8 +40,8 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
          * @return <tt>true</tt> si el vértice tiene padre,
          *         <tt>false</tt> en otro caso.
          */
-        @Override public boolean hayPadre() {
-            return this.padre != null;
+        @Override public boolean isFather() {
+            return this.father != null;
         }
 
         /**
@@ -49,8 +49,8 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
          * @return <tt>true</tt> si el vértice tiene izquierdo,
          *         <tt>false</tt> en otro caso.
          */
-        @Override public boolean hayIzquierdo() {
-            return this.izquierdo != null;
+        @Override public boolean LeftSon() {
+            return this.left != null;
         }
 
         /**
@@ -58,8 +58,8 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
          * @return <tt>true</tt> si el vértice tiene derecho,
          *         <tt>false</tt> en otro caso.
          */
-        @Override public boolean hayDerecho() {
-            return this.derecho != null;
+        @Override public boolean RightSon() {
+            return this.right != null;
         }
 
         /**
@@ -67,11 +67,11 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
          * @return el padre del vértice.
          * @throws NoSuchElementException si el vértice no tiene padre.
          */
-        @Override public VerticeArbolBinario<T> getPadre() {
-            if (!this.hayPadre()) {
+        @Override public IVertexBinaryTree<T> getFather() {
+            if (!this.isFather()) {
                 throw new NoSuchElementException();
             }
-            return this.padre;
+            return this.father;
         }
 
         /**
@@ -79,11 +79,11 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
          * @return el izquierdo del vértice.
          * @throws NoSuchElementException si el vértice no tiene izquierdo.
          */
-        @Override public VerticeArbolBinario<T> getIzquierdo() {
-            if (!this.hayIzquierdo()) {
+        @Override public IVertexBinaryTree<T> getLeft() {
+            if (!this.LeftSon()) {
                 throw new NoSuchElementException();
             }
-            return this.izquierdo;
+            return this.left;
         }
 
         /**
@@ -91,11 +91,11 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
          * @return el derecho del vértice.
          * @throws NoSuchElementException si el vértice no tiene derecho.
          */
-        @Override public VerticeArbolBinario<T> getDerecho() {
-            if (!this.hayDerecho()) {
+        @Override public IVertexBinaryTree<T> getRight() {
+            if (!this.RightSon()) {
                 throw new NoSuchElementException();
             }
-            return this.derecho;
+            return this.right;
         }
 
         /**
@@ -103,7 +103,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
          * @return el elemento al que apunta el vértice.
          */
         @Override public T get() {
-            return this.elemento;
+            return this.element;
         }
 
         /**
@@ -113,23 +113,23 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
          * @return <code>true</code> si arbol 1 y arbol 2
          *         son iguales; <code>false</code> en otro caso.
          */
-        private boolean equals(Vertice v1, Vertice v2) {
+        private boolean equals(Vertex v1, Vertex v2) {
             if (v1 == null && v2 == null) {
                 return true;
             }
-            if ((v1 == null && v2 != null) || (v1 != null && v2 == null) || !v1.elemento.equals(v2.elemento)) {
+            if ((v1 == null && v2 != null) || (v1 != null && v2 == null) || !v1.element.equals(v2.element)) {
                 return false;
             }
-            return equals(v1.izquierdo, v2.izquierdo) && equals(v1.derecho, v2.derecho);
+            return equals(v1.left, v2.left) && equals(v1.right, v2.right);
         }
 
         /**
          * Compara el vértice con otro objeto. La comparación es
-         * <em>recursiva</em>. Las clases que extiendan {@link Vertice} deben
-         * sobrecargar el método {@link Vertice#equals}.
+         * <em>recursiva</em>. Las clases que extiendan {@link Vertex} deben
+         * sobrecargar el método {@link Vertex#equals}.
          * @param o el objeto con el cual se comparará el vértice.
          * @return <code>true</code> si el objeto es instancia de la clase
-         *         {@link Vertice}, su elemento es igual al elemento de éste
+         *         {@link Vertex}, su elemento es igual al elemento de éste
          *         vértice, y los descendientes de ambos son recursivamente
          *         iguales; <code>false</code> en otro caso.
          */
@@ -138,17 +138,17 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
                 return false;
             if (getClass() != o.getClass())
                 return false;
-            @SuppressWarnings("unchecked") Vertice vertice = (Vertice)o;
+            @SuppressWarnings("unchecked") Vertex vertice = (Vertex)o;
             return equals(this, vertice);
         }
     }
 
     /** La raíz del árbol. */
-    protected Vertice raiz;
+    protected Vertex raiz;
     /** El número de elementos */
     protected int elementos;
     /** El vértice del último elemento agegado. */
-    protected Vertice ultimoAgregado;
+    protected Vertex ultimoAgregado;
 
     /**
      * Constructor sin parámetros. Para no perder el constructor sin parámetros.
@@ -168,7 +168,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
     }
 
     /**
-     * Construye un nuevo vértice, usando una instancia de {@link Vertice}. Para
+     * Construye un nuevo vértice, usando una instancia de {@link Vertex}. Para
      * crear vértices se debe utilizar este método en lugar del operador
      * <code>new</code>, para que las clases herederas de ésta puedan
      * sobrecargarlo y permitir que cada estructura de árbol binario utilice
@@ -176,15 +176,15 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      * @param elemento el elemento dentro del vértice.
      * @return un nuevo vértice con el elemento recibido dentro del mismo.
      */
-    protected Vertice nuevoVertice(T elemento) {
-        return new Vertice(elemento);
+    protected Vertex nuevoVertice(T elemento) {
+        return new Vertex(elemento);
     }
 
-    private int profundidad(Vertice v) {
+    private int profundidad(Vertex v) {
         if (v == null) {
             return -1;
         }
-        return 1 + Math.max(this.profundidad(v.izquierdo), this.profundidad(v.derecho));
+        return 1 + Math.max(this.profundidad(v.left), this.profundidad(v.right));
     }
 
     /**
@@ -208,7 +208,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      * Regresa el vértice que contiene el último elemento agregado al árbol.
      * @return el vértice que contiene el último elemento agregado al árbol.
      */
-    public VerticeArbolBinario<T> getUltimoVerticeAgregado() {
+    public IVertexBinaryTree<T> getUltimoVerticeAgregado() {
         return this.ultimoAgregado;
     }
 
@@ -219,14 +219,14 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      * @return <code>true</code> si el elemento está en el árbol;
      *         <code>false</code> en otro caso.
      */
-    private boolean contiene(T elemento, Vertice v){
+    private boolean contiene(T elemento, Vertex v){
         if (v == null) {
             return false;
         }
-        if (v.elemento.equals(elemento)) {
+        if (v.element.equals(elemento)) {
             return true;
         }
-        return contiene(elemento, v.izquierdo) || contiene(elemento, v.derecho);
+        return contiene(elemento, v.left) || contiene(elemento, v.right);
     }
 
     /**
@@ -246,7 +246,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      * @return un vértice que contiene el elemento buscado si lo encuentra;
      *         <tt>null</tt> en otro caso.
      */
-    public VerticeArbolBinario<T> busca(T elemento) {
+    public IVertexBinaryTree<T> busca(T elemento) {
         /* Busca recursivamente. */
         return busca(raiz, elemento);
     }
@@ -259,15 +259,15 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      * @return el vértice que contiene el elemento a buscar, si se encuentra en
      *         el árbol; <code>null</code> en otro caso.
      */
-    protected Vertice busca(Vertice vertice, T elemento) {
+    protected Vertex busca(Vertex vertice, T elemento) {
         if (vertice == null) {
             return null;
         }
-        if (vertice.elemento.equals(elemento)) {
+        if (vertice.element.equals(elemento)) {
             return vertice;
         }
-        Vertice iz = busca(vertice.izquierdo, elemento);
-        return ((iz != null) ? iz : busca(vertice.derecho, elemento));
+        Vertex iz = busca(vertice.left, elemento);
+        return ((iz != null) ? iz : busca(vertice.right, elemento));
     }
 
     /**
@@ -275,7 +275,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      * @return el vértice que contiene la raíz del árbol.
      * @throws NoSuchElementException si el árbol es vacío.
      */
-    public VerticeArbolBinario<T> raiz() {
+    public IVertexBinaryTree<T> raiz() {
         if (this.esVacio()) {
             throw new NoSuchElementException();
         }
@@ -327,12 +327,12 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
     }
 
     /* Método auxiliar recursivo que hace todo el trabajo. */
-    private String aCadena(Vertice vertice, int nivel, boolean[] rama) {
+    private String aCadena(Vertex vertice, int nivel, boolean[] rama) {
         /* Primero que nada agregamos el vertice a la cadena. */
         String s = vertice + "\n";
         /* A partir de aquí, dibujamos rama en este nivel. */
         rama[nivel] = true;
-        if (vertice.izquierdo != null && vertice.derecho != null) {
+        if (vertice.left != null && vertice.right != null) {
             /* Si hay vertice izquierdo Y derecho, dibujamos ramas o
              * espacios. */
             s += espacios(nivel, rama);
@@ -340,7 +340,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
             s += "├─›";
             /* Recursivamente dibujamos el hijo izquierdo y sus
                descendientes. */
-            s += aCadena(vertice.izquierdo, nivel+1, rama);
+            s += aCadena(vertice.left, nivel+1, rama);
             /* Dibujamos ramas o espacios. */
             s += espacios(nivel, rama);
             /* Dibujamos el conector al hijo derecho. */
@@ -349,8 +349,8 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
                nivel. */
             rama[nivel] = false;
             /* Recursivamente dibujamos el hijo derecho y sus descendientes. */
-            s += aCadena(vertice.derecho, nivel+1, rama);
-        } else if (vertice.izquierdo != null) {
+            s += aCadena(vertice.right, nivel+1, rama);
+        } else if (vertice.left != null) {
             /* Dibujamos ramas o espacios. */
             s += espacios(nivel, rama);
             /* Dibujamos el conector al hijo izquierdo. */
@@ -360,8 +360,8 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
             rama[nivel] = false;
             /* Recursivamente dibujamos el hijo izquierdo y sus
                descendientes. */
-            s += aCadena(vertice.izquierdo, nivel+1, rama);
-        } else if (vertice.derecho != null) {
+            s += aCadena(vertice.left, nivel+1, rama);
+        } else if (vertice.right != null) {
             /* Dibujamos ramas o espacios. */
             s += espacios(nivel, rama);
             /* Dibujamos el conector al hijo derecho. */
@@ -370,7 +370,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
                nivel. */
             rama[nivel] = false;
             /* Recursivamente dibujamos el hijo derecho y sus descendientes. */
-            s += aCadena(vertice.derecho, nivel+1, rama);
+            s += aCadena(vertice.right, nivel+1, rama);
         }
         return s;
     }
@@ -391,17 +391,17 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
 
     /**
      * Convierte el vértice (visto como instancia de {@link
-     * VerticeArbolBinario}) en vértice (visto como instancia de {@link
-     * Vertice}). Método auxiliar para hacer esta audición en un único lugar.
+     * IVertexBinaryTree}) en vértice (visto como instancia de {@link
+     * Vertex}). Método auxiliar para hacer esta audición en un único lugar.
      * @param vertice el vértice de árbol binario que queremos como vértice.
      * @return el vértice recibido visto como vértice.
      * @throws ClassCastException si el vértice no es instancia de {@link
-     *         Vertice}.
+     *         Vertex}.
      */
-    protected Vertice vertice(VerticeArbolBinario<T> vertice) {
+    protected Vertex vertice(IVertexBinaryTree<T> vertice) {
         /* No necesitamos suprimir advertencias porque Vertice no es
          * genérica. */
-        Vertice v = (Vertice)vertice;
+        Vertex v = (Vertex)vertice;
         return v;
     }
 }

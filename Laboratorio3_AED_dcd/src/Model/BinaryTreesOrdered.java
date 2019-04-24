@@ -3,7 +3,7 @@ package Model;
 import java.util.Iterator;
 
 import Interfaces.Coleccion;
-import Interfaces.VerticeArbolBinario;
+import Interfaces.IVertexBinaryTree;
 
 public class BinaryTreesOrdered<T extends Comparable<T>>
 extends BinaryTree<T> {
@@ -12,18 +12,18 @@ extends BinaryTree<T> {
 private class Iterador implements Iterator<T> {
 
     /* Pila para emular la pila de ejecución. */
-    private Pila<BinaryTree<T>.Vertice> pila;
+    private Pila<BinaryTree<T>.Vertex> pila;
 
     /* Construye un iterador con el vértice recibido. */
     public Iterador() {
-        pila = new Pila<BinaryTree<T>.Vertice>();
+        pila = new Pila<BinaryTree<T>.Vertex>();
         if (esVacio()) {
             return;
         }
-        Vertice vi = raiz;
+        Vertex vi = raiz;
         while(vi != null){
             pila.mete(vi);
-            vi = vi.izquierdo;
+            vi = vi.left;
         }
     }
 
@@ -34,15 +34,15 @@ private class Iterador implements Iterator<T> {
 
     /* Regresa el siguiente elemento del árbol en orden. */
     @Override public T next() {
-        Vertice v = pila.saca(), vi;
-        if (v.hayDerecho()) {
-            vi = v.derecho;
+        Vertex v = pila.saca(), vi;
+        if (v.RightSon()) {
+            vi = v.right;
             while(vi != null){
                 pila.mete(vi);
-                vi = vi.izquierdo;
+                vi = vi.left;
             }
         }
-        return v.elemento;
+        return v.element;
         
     }
 
@@ -73,25 +73,25 @@ public BinaryTreesOrdered(Coleccion<T> coleccion) {
  * @param v Vertice donde estamos
  * @param elemento Elemento que se quiere agregar
  */
-private void agrega(Vertice v, T elemento) {
-    if (elemento.compareTo(v.elemento) <= 0) {
-        if (!v.hayIzquierdo()) {
-            v.izquierdo = nuevoVertice(elemento);
-            v.izquierdo.padre = v;
-            this.ultimoAgregado = v.izquierdo;
+private void agrega(Vertex v, T elemento) {
+    if (elemento.compareTo(v.element) <= 0) {
+        if (!v.LeftSon()) {
+            v.left = nuevoVertice(elemento);
+            v.left.father = v;
+            this.ultimoAgregado = v.left;
             this.elementos++;
             return;
         }
-        this.agrega(v.izquierdo, elemento);
+        this.agrega(v.left, elemento);
     } else {
-        if (!v.hayDerecho()) {
-            v.derecho = nuevoVertice(elemento);
-            v.derecho.padre = v;
-            this.ultimoAgregado = v.derecho;
+        if (!v.RightSon()) {
+            v.right = nuevoVertice(elemento);
+            v.right.father = v;
+            this.ultimoAgregado = v.right;
             this.elementos++;
             return;
         }
-        this.agrega(v.derecho, elemento);
+        this.agrega(v.right, elemento);
     }
 }
 
@@ -114,11 +114,11 @@ private void agrega(Vertice v, T elemento) {
  * @param v vertice que se verifica.
  * @throws <code> true </code> si lo es. <code> false </code> en otro caso.
  */    
-private boolean esHijoIzquierdo(Vertice v) {
-    if (!v.hayPadre()) {
+private boolean esHijoIzquierdo(Vertex v) {
+    if (!v.isFather()) {
         return false;
     }
-    return v.padre.izquierdo == v;
+    return v.father.left == v;
 }
 
 /**
@@ -126,11 +126,11 @@ private boolean esHijoIzquierdo(Vertice v) {
  * @param v vertice que se verifica.
  * @throws <code> true </code> si lo es. <code> false </code> en otro caso.
  */    
-private boolean esHijoDerecho(Vertice v) {
-    if (!v.hayPadre()) {
+private boolean esHijoDerecho(Vertex v) {
+    if (!v.isFather()) {
         return false;
     }
-    return v.padre.derecho == v;
+    return v.father.right == v;
 }
 
 
@@ -138,14 +138,14 @@ private boolean esHijoDerecho(Vertice v) {
  * Auxiliar de elimina. Elimina una hoja.
  * @param eliminar el elemento a eliminar que debe ser hoja.
  */
-private void eliminaHoja(Vertice eliminar) {
+private void eliminaHoja(Vertex eliminar) {
     if (this.raiz == eliminar) {
         this.raiz = null;
         this.ultimoAgregado = null;
     } else if (this.esHijoIzquierdo(eliminar)) {
-        eliminar.padre.izquierdo = null;
+        eliminar.father.left = null;
     } else {
-        eliminar.padre.derecho = null;
+        eliminar.father.right = null;
     }
     this.elementos--;
 }
@@ -154,16 +154,16 @@ private void eliminaHoja(Vertice eliminar) {
  * Auxiliar de elimina. Elimina vertice que no tiene hijo izquierdo.
  * @param eliminar el elemento a eliminar que debe no tener hijo izquierdo.
  */
-private void eliminaSinHijoIzquierdo(Vertice eliminar) {
+private void eliminaSinHijoIzquierdo(Vertex eliminar) {
     if (this.raiz == eliminar) {
-        this.raiz = this.raiz.derecho;
-        eliminar.derecho.padre = null;
+        this.raiz = this.raiz.right;
+        eliminar.right.father = null;
     } else {
-        eliminar.derecho.padre = eliminar.padre;
+        eliminar.right.father = eliminar.father;
         if (this.esHijoIzquierdo(eliminar)) {
-            eliminar.padre.izquierdo = eliminar.derecho;
+            eliminar.father.left = eliminar.right;
         } else {
-            eliminar.padre.derecho = eliminar.derecho;
+            eliminar.father.right = eliminar.right;
         }
     }
     this.elementos--;
@@ -173,16 +173,16 @@ private void eliminaSinHijoIzquierdo(Vertice eliminar) {
  * Auxiliar de elimina. Elimina vertice que no tiene hijo derecho.
  * @param eliminar el elemento a eliminar que debe no tener hijo derecho.
  */
-private void eliminaSinHijoDerecho(Vertice eliminar) {
+private void eliminaSinHijoDerecho(Vertex eliminar) {
     if (this.raiz == eliminar) {
-        this.raiz = this.raiz.izquierdo;
-        eliminar.izquierdo.padre = null;
+        this.raiz = this.raiz.left;
+        eliminar.left.father = null;
     } else {
-        eliminar.izquierdo.padre = eliminar.padre;
+        eliminar.left.father = eliminar.father;
         if (this.esHijoIzquierdo(eliminar)) {
-            eliminar.padre.izquierdo = eliminar.izquierdo;
+            eliminar.father.left = eliminar.left;
         } else {
-            eliminar.padre.derecho = eliminar.izquierdo;
+            eliminar.father.right = eliminar.left;
         }
     }
     this.elementos--;
@@ -195,19 +195,19 @@ private void eliminaSinHijoDerecho(Vertice eliminar) {
  * @param elemento el elemento a eliminar.
  */
 @Override public void elimina(T elemento) {
-    Vertice eliminar = this.busca(this.raiz, elemento), vi;
+    Vertex eliminar = this.busca(this.raiz, elemento), vi;
     if (eliminar == null) {
         return;
     }
-    if (eliminar.hayIzquierdo()) {
+    if (eliminar.LeftSon()) {
         vi = eliminar;
-        eliminar = maximoEnSubarbol(eliminar.izquierdo);
-        vi.elemento = eliminar.elemento;            
+        eliminar = maximoEnSubarbol(eliminar.left);
+        vi.element = eliminar.element;            
     }
 
-    if (!eliminar.hayIzquierdo() && !eliminar.hayDerecho()) {
+    if (!eliminar.LeftSon() && !eliminar.RightSon()) {
         this.eliminaHoja(eliminar);
-    } else if (!eliminar.hayIzquierdo()) {
+    } else if (!eliminar.LeftSon()) {
         this.eliminaSinHijoIzquierdo(eliminar);
     } else {
         this.eliminaSinHijoDerecho(eliminar);
@@ -222,19 +222,19 @@ private void eliminaSinHijoDerecho(Vertice eliminar) {
  * @return el vértice que contiene el elemento a buscar, si se encuentra en
  *         el árbol; <code>null</code> en otro caso.
  */
-@Override protected Vertice busca(Vertice vertice, T elemento) {
-    Vertice iz;
+@Override protected Vertex busca(Vertex vertice, T elemento) {
+    Vertex iz;
     if (vertice == null) {
         return null;
     }
-    iz = this.busca(vertice.izquierdo, elemento);
+    iz = this.busca(vertice.left, elemento);
     if (iz != null) {
         return iz;
     }
-    if ((vertice.elemento == null && elemento == null) || vertice.elemento.equals(elemento)) {
+    if ((vertice.element == null && elemento == null) || vertice.element.equals(elemento)) {
         return vertice;
     }
-    return this.busca(vertice.derecho, elemento);
+    return this.busca(vertice.right, elemento);
 }
 
 /**
@@ -244,9 +244,9 @@ private void eliminaSinHijoDerecho(Vertice eliminar) {
  *                máximo.
  * @return el vértice máximo el subárbol cuya raíz es el vértice que recibe.
  */
-protected Vertice maximoEnSubarbol(Vertice vertice) {
-    while(vertice.hayDerecho()) {
-        vertice = vertice.derecho;
+protected Vertex maximoEnSubarbol(Vertex vertice) {
+    while(vertice.RightSon()) {
+        vertice = vertice.right;
     }
     return vertice;
 }
@@ -264,28 +264,28 @@ protected Vertice maximoEnSubarbol(Vertice vertice) {
  * tiene hijo izquierdo, el método no hace nada.
  * @param vertice el vértice sobre el que vamos a girar.
  */
-public void giraDerecha(VerticeArbolBinario<T> vertice) {
-    if (vertice == null || !vertice.hayIzquierdo()) {
+public void giraDerecha(IVertexBinaryTree<T> vertice) {
+    if (vertice == null || !vertice.LeftSon()) {
         return;
     }
-    Vertice v = this.vertice(vertice);
-    Vertice vi = v.izquierdo;
-    vi.padre = v.padre;
+    Vertex v = this.vertice(vertice);
+    Vertex vi = v.left;
+    vi.father = v.father;
     if (v != this.raiz) {
         if (this.esHijoIzquierdo(v)) {
-            vi.padre.izquierdo = vi;
+            vi.father.left = vi;
         } else {
-            vi.padre.derecho = vi;
+            vi.father.right = vi;
         }
     } else {
         this.raiz = vi;
     }
-    v.izquierdo = vi.derecho;
-    if (vi.hayDerecho()) {
-        vi.derecho.padre = v;
+    v.left = vi.right;
+    if (vi.RightSon()) {
+        vi.right.father = v;
     }
-    v.padre = vi;
-    vi.derecho = v;
+    v.father = vi;
+    vi.right = v;
 }
 
 /**
@@ -293,27 +293,27 @@ public void giraDerecha(VerticeArbolBinario<T> vertice) {
  * tiene hijo derecho, el método no hace nada.
  * @param vertice el vértice sobre el que vamos a girar.
  */
-public void giraIzquierda(VerticeArbolBinario<T> vertice) {
-    if (vertice == null || !vertice.hayDerecho()) {
+public void giraIzquierda(IVertexBinaryTree<T> vertice) {
+    if (vertice == null || !vertice.RightSon()) {
         return;
     }
-    Vertice v = this.vertice(vertice);
-    Vertice vd = v.derecho;
-    vd.padre = v.padre;
+    Vertex v = this.vertice(vertice);
+    Vertex vd = v.right;
+    vd.father = v.father;
     if (v != this.raiz) {
         if (this.esHijoIzquierdo(v)) {
-            vd.padre.izquierdo = vd;
+            vd.father.left = vd;
         } else {
-            vd.padre.derecho = vd;
+            vd.father.right = vd;
         }
     } else {
         this.raiz = vd;
     }
-    v.derecho = vd.izquierdo;
-    if (vd.hayIzquierdo()) {
-        vd.izquierdo.padre = v;
+    v.right = vd.left;
+    if (vd.LeftSon()) {
+        vd.left.father = v;
     }
-    v.padre = vd;
-    vd.izquierdo = v;
+    v.father = vd;
+    vd.left = v;
 }
 }
