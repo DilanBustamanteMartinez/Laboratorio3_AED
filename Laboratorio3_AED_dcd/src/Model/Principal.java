@@ -5,11 +5,14 @@ public class Principal {
 	private RedBlackTree exchanges;
 	private TreeAVL capital;
 	
-	public Principal(){
-		
-		
+
+public Principal() {
+		super();
+		this.exchanges = new RedBlackTree<String>();
+		this.capital = new TreeAVL<String>();
 	}
-	
+
+
 public void modifyMarket() {
 		
 	}
@@ -49,7 +52,7 @@ public void modifyMarket() {
 	public static void main(String[] args){
 		
 		
-		
+		Principal main = new Principal();
 	}
 	
 }

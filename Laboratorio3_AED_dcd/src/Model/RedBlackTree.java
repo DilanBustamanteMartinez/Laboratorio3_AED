@@ -9,9 +9,6 @@ import Interfaces.IVertexBinaryTree;
 public class RedBlackTree<T extends Comparable<T>> extends BinaryTreesOrdered<T> {
 
 	
-	RedBlackTree(){
-		
-	}
 /**
  * Clase interna protegida para vértices de árboles rojinegros. La única
  * diferencia con los vértices de árbol binario, es que tienen un campo para
