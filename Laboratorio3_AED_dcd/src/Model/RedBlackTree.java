@@ -193,9 +193,9 @@ private void rebalanceoAgrega (VerticeRojinegro vertice) {
  * vértices y girando el árbol como sea necesario.
  * @param elemento el elemento a agregar.
  */
-@Override public void agrega(T elemento) {
+@Override public void add(T elemento) {
     VerticeRojinegro ultimoAgregadoRN;
-    super.agrega(elemento);
+    super.add(elemento);
     ultimoAgregadoRN = this.verticeRojinegro(this.ultimoAgregado);
     this.rebalanceoAgrega(ultimoAgregadoRN);
 }

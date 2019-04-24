@@ -163,7 +163,7 @@ public abstract class BinaryTree<T> implements Coleccion<T> {
      */
     public BinaryTree(Coleccion<T> coleccion) {
         for(T e:coleccion) {
-            this.agrega(e);
+            this.add(e);
         }
     }
 

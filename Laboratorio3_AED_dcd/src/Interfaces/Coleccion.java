@@ -6,7 +6,7 @@ package Interfaces;
 	     * Agrega un elemento a la colección.
 	     * @param elemento el elemento a agregar.
 	     */
-	    public void agrega(T elemento);
+	    public void add(T elemento);
 
 	    /**
 	     * Elimina un elemento de la colección.

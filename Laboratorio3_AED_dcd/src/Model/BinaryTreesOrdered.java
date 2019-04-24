@@ -99,7 +99,7 @@ private void agrega(Vertex v, T elemento) {
  * Agrega un nuevo elemento al árbol. El árbol conserva su orden in-order.
  * @param elemento el elemento a agregar.
  */
-@Override public void agrega(T elemento) {
+@Override public void add(T elemento) {
     if (elemento == null) throw new IllegalArgumentException();
     if (this.esVacio()) {
         this.raiz = this.ultimoAgregado = nuevoVertice(elemento);
