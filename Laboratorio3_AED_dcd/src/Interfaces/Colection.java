@@ -1,6 +1,6 @@
 package Interfaces;
 
-	public interface Coleccion<T> extends Iterable<T>{
+	public interface Colection<T> extends Iterable<T>{
 
 	    /**
 	     * Agrega un elemento a la colección.
@@ -21,19 +21,20 @@ package Interfaces;
 	     * @return <code>true</code> si el elemento está contenido en la colección,
 	     *         <code>false</code> en otro caso.
 	     */
-	    public boolean contiene(T elemento);
+	    public boolean contain(T elemento);
 
 	    /**
 	     * Nos dice si el conjunto de elementos en la colección es vacío.
 	     * @return <code>true</code> si el conjunto de elementos en la colección es
 	     *         vacío, <code>false</code> en otro caso.
 	     */
-	    public boolean esVacio();
+	    public boolean isEmpty();
 
 	    /**
 	     * Regresa el número de elementos en la colección.
 	     * @return el número de elementos en la colección.
 	     */
-	    public int getElementos();
+	    public int getElements();
+	    
 	}
 
