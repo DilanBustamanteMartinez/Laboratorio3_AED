@@ -37,8 +37,16 @@ public void modifyMarket() {
 	
 	public void addFile() throws IOException{
 		
-		String data = JOptionPane.showInputDialog("Por favor ingrese los datos del mercado de divisas, de la forma:"
-				+ " nombre, fecha(DD/MM/AAAA) tiempo(mm:ss), precio");
+		String data = "";
+		int iterator = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de "
+				+ "datos que contiene su archivo."));
+			
+				
+		for(int i=0; i<iterator;i++){
+			data += JOptionPane.showInputDialog("Por favor ingrese los datos del mercado de divisas, de la forma:"
+					+ " nombre, fecha(DD/MM/AAAA) tiempo(mm:ss), precio");
+			data += "/n";
+		}
 	
 	FileWriter fw = new FileWriter("Data/New_Info_Exchange");
 	BufferedWriter bw = new BufferedWriter(fw);
