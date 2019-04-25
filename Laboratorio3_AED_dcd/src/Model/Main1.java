@@ -1,13 +1,9 @@
 package Model;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.*;
  
 
 public class Main1 extends JFrame{
@@ -25,14 +21,10 @@ public Main1() {
 }
 
 
-
-
-
 public void modifyMarket() {
 		
 	}
 	
-
 	
 	public void deleteMarket() {
 		
@@ -57,10 +49,11 @@ public void modifyMarket() {
 	bw.write(data);
 	bw.flush();
 	
-	selected = new File("Data/New_Info_Exchange");		
+	selected = new File("Data/New_Info_Exchange");
+	readData();
 	}	
 	
-	public File selectFile() {
+	public File selectFile() throws IOException {
 		
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
@@ -70,11 +63,13 @@ public void modifyMarket() {
 		    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 		    selected = selectedFile;
 		}
+		
+		readData();
 		return selected;
 		
 	}
 	
-	public void consultHigherPrice() {
+	public void consultHigherPrice() throws IOException {
 		
 		int higher = 0;
 		selectFile();
@@ -92,6 +87,34 @@ public void modifyMarket() {
 	
 	public void watchStatistics() {
 		
+	}
+	
+	//Método encargado de leer los datos y crear cada uno de los mercados con
+	// la información del archivo actual.
+	public void readData() throws IOException{
+		
+		FileReader fr = new FileReader(selected.getName());
+		BufferedReader br = new BufferedReader(fr);
+		
+		boolean esFin = false;
+		
+		
+		while(!esFin){
+			
+			String[] market = new String[3];
+			market = br.readLine().split(", ");
+			
+			if(market[1]!=null){
+				
+				String[] auxDate = new String[2];
+				auxDate = market[1].split(" ");
+				
+				Market mk = new Market(market[0],auxDate[0],auxDate[1],market[2]);
+			}else{
+				
+				esFin=true;
+			}
+		}
 	}
 	
 	public static void main(String[] args){
