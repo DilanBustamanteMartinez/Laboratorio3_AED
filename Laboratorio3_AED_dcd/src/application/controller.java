@@ -78,7 +78,7 @@ public class controller {
 	}
 	
 	public void consultLessPrice() {
-		
+	link.consultLessPrice();
 	}
 	
 	public void watchGraphics() {
