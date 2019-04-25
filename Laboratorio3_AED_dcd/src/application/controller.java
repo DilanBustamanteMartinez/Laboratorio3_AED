@@ -67,12 +67,13 @@ public class controller {
 	}
 	
 	
-	public void selectFile(){
+	public void selectFile() throws IOException{
 		link.selectFile();
 	}
 	
 	
-	public void consultHigherPrice() {
+	public void consultHigherPrice() throws IOException {
+		link.consultHigherPrice();
 		
 	}
 	
