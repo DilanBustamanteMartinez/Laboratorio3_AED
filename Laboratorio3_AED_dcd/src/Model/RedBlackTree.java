@@ -48,7 +48,7 @@ protected class ARNVertex extends BinaryTree<T>.Vertex {
      * @return <code>true</code> si arbol 1 y arbol 2
      *         son iguales; <code>false</code> en otro caso.
      */
-    private boolean equals(ARNVertex v1, ARNVertex v2) {
+    public boolean equals(ARNVertex v1, ARNVertex v2) {
         if (v1 == null && v2 == null) {
             return true;
         }

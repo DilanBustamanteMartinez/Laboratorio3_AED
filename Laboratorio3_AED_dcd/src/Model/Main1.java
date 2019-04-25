@@ -78,22 +78,20 @@ public Main1() {
 	
 	public void consultHigherPrice() throws IOException {
 		
-		int higher= 0;
+		double higher= 0;
+		
 		if(markets.isEmpty()){
 			
 			JOptionPane.showMessageDialog(null, "No se ha seleccionado o cargado ningún archivo."
 					+ "\nPor favor, seleccione uno.");
 		}else{
 			
-			for(int i=0; i< markets.size()-1; i++){
+			for(int i=0; i< markets.size(); i++){
 				
-			int value1=Integer.parseInt(markets.get(i).getValue());
-			int value2=Integer.parseInt(markets.get(i+1).getValue());
+			double value1 = Double.parseDouble(markets.get(i).getValue());
 			
-				if(value1 < value2){
-					higher = value2;
-				}else{
-					higher =  value1;
+				if(higher < value1) {
+					higher = value1;
 				}
 				
 			}
@@ -109,12 +107,28 @@ public Main1() {
 	
 	public void consultLessPrice() {
 		
+double less= 0;
+		
 		if(markets.isEmpty()){
 			
 			JOptionPane.showMessageDialog(null, "No se ha seleccionado o cargado ningún archivo."
 					+ "\nPor favor, seleccione uno.");
 		}else{
 			
+			for(int i=1; i< markets.size(); i++){
+				
+				less = Double.parseDouble(markets.get(0).getValue());
+				
+			double value1 = Double.parseDouble(markets.get(i).getValue());
+			
+				if(less > value1) {
+					less = value1;
+				}
+				
+			}
+			
+			JOptionPane.showMessageDialog(null, "El precio más bajo del mercado es"
+					+ ": " + less);
 			
 		}
 	}
@@ -130,28 +144,22 @@ public Main1() {
 	//Método encargado de leer los datos y crear cada uno de los mercados con
 	// la información del archivo actual.
 	public void readData() throws IOException{
-		
-		FileReader fr = new FileReader(selected.getName());
+		System.out.println("EL ES : " + selected.getName());
+		FileReader fr = new FileReader("Data/"+selected.getName());
 		BufferedReader br = new BufferedReader(fr);		
+
 		
-		boolean esFin = false;
-		
-		while(!esFin){
+		while(br.ready()){
 			
 			String[] market = new String[3];
 			market = br.readLine().split(", ");
-			
-			if(market[1]!=null){
+			System.out.println(market[0] + market[1] + market[2]);
 				
 				String[] auxDate = new String[2];
 				auxDate = market[1].split(" ");
 				
 				Market mk = new Market(market[0],auxDate[0],auxDate[1],market[2]);
 				markets.add(mk);
-			}else{
-				
-				esFin=true;
-			}
 		}
 	}
 	
