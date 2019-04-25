@@ -1,12 +1,18 @@
 package application;
 
+import java.io.IOException;
+import java.security.Principal;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import Model.Main1;
+
+
 
 public class controller {
+	
+	public Main1 link;
+	public Main linkMainIG;
 	
 	@FXML
 	private Label logo;
@@ -28,11 +34,11 @@ public class controller {
 	@FXML
 	private Button watchStatistics;
 
-	
+
 	public controller() {
-		
+		link = new Main1(); 
 	}
-	
+
 	public void initialize() {
 	Image icono = new Image("application/bvc1.png");
 	ImageView img = new ImageView(icono);
@@ -40,6 +46,8 @@ public class controller {
 	logo.setLayoutX(80);
 	logo.setLayoutY(0);
 	logo.setGraphic(img);
+	
+	
 	
 	}
 	
@@ -53,13 +61,14 @@ public class controller {
 	}
 	
 	
-	public void addFile () {
+	public void addFile () throws IOException {
+	link.addFile();
 		
 	}
 	
 	
-	public void selectFile() {
-		
+	public void selectFile(){
+		link.selectFile();
 	}
 	
 	
@@ -72,6 +81,9 @@ public class controller {
 	}
 	
 	public void watchGraphics() {
+		
+		linkMainIG = new Main();
+		linkMainIG.start2();
 		
 	}
 	

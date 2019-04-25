@@ -21,14 +21,14 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="modifymarket" mnemonicParsing="false" prefHeight="85.0" prefWidth="150.0" text="Modificar Mercado" />
-            <Button fx:id="addFile" layoutX="10.0" layoutY="21.0" mnemonicParsing="false" prefHeight="84.0" prefWidth="150.0" text="Agregar un archivo" GridPane.columnIndex="1" />
-            <Button fx:id="watchGraphics" layoutX="210.0" layoutY="40.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="150.0" text="Ver graficas" GridPane.columnIndex="3" />
-            <Button fx:id="deleteMarket" layoutX="10.0" layoutY="40.0" mnemonicParsing="false" prefHeight="84.0" prefWidth="150.0" text="Eliminar Mercado" GridPane.rowIndex="1" />
-            <Button fx:id="selectFile" layoutX="210.0" layoutY="40.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="150.0" text="Seleccionar archivo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="watchStatistics" layoutX="410.0" layoutY="40.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="150.0" text="Ver estadisticas" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Button fx:id="consultHigherPrice" layoutX="160.0" layoutY="40.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="150.0" text="Consultar Mayor precio" GridPane.columnIndex="2" />
-            <Button fx:id="consultLessPrice" layoutX="10.0" layoutY="40.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="150.0" text="Consultar Menor precio" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="modifymarket" mnemonicParsing="false" onAction="#modifyMarket" prefHeight="85.0" prefWidth="150.0" text="Modificar Mercado" />
+            <Button fx:id="addFile" layoutX="10.0" layoutY="21.0" mnemonicParsing="false" onAction="#addFile" prefHeight="84.0" prefWidth="150.0" text="Crear un archivo" GridPane.columnIndex="1" />
+            <Button fx:id="watchGraphics" layoutX="210.0" layoutY="40.0" mnemonicParsing="false" onAction="#watchGraphics" prefHeight="82.0" prefWidth="150.0" text="Ver graficas" GridPane.columnIndex="3" />
+            <Button fx:id="deleteMarket" layoutX="10.0" layoutY="40.0" mnemonicParsing="false" onAction="#deleteMarket" prefHeight="84.0" prefWidth="150.0" text="Eliminar Mercado" GridPane.rowIndex="1" />
+            <Button fx:id="selectFile" layoutX="210.0" layoutY="40.0" mnemonicParsing="false" onAction="#selectFile" prefHeight="86.0" prefWidth="150.0" text="Seleccionar archivo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="watchStatistics" layoutX="410.0" layoutY="40.0" mnemonicParsing="false" onAction="#watchStatistics" prefHeight="88.0" prefWidth="150.0" text="Ver estadisticas" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Button fx:id="consultHigherPrice" layoutX="160.0" layoutY="40.0" mnemonicParsing="false" onAction="#consultHigherPrice" prefHeight="83.0" prefWidth="150.0" text="Consultar Mayor precio" GridPane.columnIndex="2" />
+            <Button fx:id="consultLessPrice" layoutX="10.0" layoutY="40.0" mnemonicParsing="false" onAction="#consultLessPrice" prefHeight="86.0" prefWidth="150.0" text="Consultar Menor precio" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Label fx:id="logo" layoutX="27.0" layoutY="21.0" prefHeight="119.0" prefWidth="612.0" />
