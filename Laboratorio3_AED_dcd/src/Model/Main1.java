@@ -73,6 +73,8 @@ public Main1() {
 		
 	}
 	
+	
+	
 	public void consultHigherPrice() throws IOException {
 		
 		int higher= 0;
