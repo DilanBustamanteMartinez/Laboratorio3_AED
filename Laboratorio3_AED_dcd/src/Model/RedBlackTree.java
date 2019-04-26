@@ -148,6 +148,7 @@ private void rebalanceoAgrega (ARNVertex vertice) {
         vertice.color = Color.BLACK;
         return;
     }
+    
     // Caso 2
     padre = this.VertexARN(vertice.father);
     if (padre.color == Color.BLACK) {
