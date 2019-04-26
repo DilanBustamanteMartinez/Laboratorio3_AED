@@ -1,8 +1,8 @@
 package Model;
 
-public class Market {
-	
-	private String date;
+public class Market implements Comparable<Market>{
+
+ String date;
 	private String hour;
 	private String value;
 	private String tipe;
@@ -47,8 +47,11 @@ public class Market {
 	public void setTipe(String tipe) {
 		this.tipe = tipe;
 	}
-	
-	
-	
 
+	@Override
+	public int compareTo(Market o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 }

@@ -283,8 +283,8 @@ public abstract class BinaryTree<T> implements Colection<T> {
     }
 
     /**
-     * Regresa el número de elementos en el árbol.
-     * @return el número de elementos en el árbol.
+     * Regresa un booleano que indica si el árbol contiene elementos.
+     * @return true si el árbol está vacio, false de lo contrario.
      */
     @Override public boolean isEmpty() {
         return this.raiz == null;
