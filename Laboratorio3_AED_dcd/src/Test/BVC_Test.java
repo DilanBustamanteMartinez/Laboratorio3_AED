@@ -13,8 +13,21 @@ public class BVC_Test {
 		fail("Not yet implemented");
 	}
 	
-	@Test 
-	public void testEquals() {
-		linkRBT.
-  
+	
+	public void StageOne() {
+		
+	}
+	
+	public void StageTwo() {
+		
+	}
+	
+	public void Stagethree() {
+		
+	}
+	
+	public void StageFour() {
+		
+	}
+
 }

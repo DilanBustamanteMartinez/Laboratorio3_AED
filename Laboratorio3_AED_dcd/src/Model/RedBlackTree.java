@@ -14,7 +14,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinaryTreesOrdered<T>
  * diferencia con los vértices de árbol binario, es que tienen un campo para
  * el color del vértice.
  */
-protected class ARNVertex extends BinaryTree<T>.Vertex {
+public class ARNVertex extends BinaryTree<T>.Vertex {
 
     /** El color del vértice. */
     public Color color;
@@ -85,7 +85,7 @@ protected class ARNVertex extends BinaryTree<T>.Vertex {
  * @return un nuevo vértice rojinegro con el elemento recibido dentro del
  *         mismo.
  */
-@Override protected Vertex nuevoVertice(T elemento) {
+@Override public  Vertex nuevoVertice(T elemento) {
     return new ARNVertex(elemento);
 }
 
@@ -141,7 +141,7 @@ private boolean esHijoDerecho(Vertex v) {
     return v.father.right == v;
 }
 
-private void rebalanceoAgrega (ARNVertex vertice) {
+public  void rebalanceoAgrega (ARNVertex vertice) {
     ARNVertex padre, tio, abuelo, aux;
     // Caso 1
     if (!vertice.isFather()) {
@@ -206,7 +206,7 @@ private void rebalanceoAgrega (ARNVertex vertice) {
  * Auxiliar de elimina. Elimina una hoja.
  * @param eliminar el elemento a eliminar que debe ser hoja.
  */
-private void eliminaHoja(Vertex eliminar) {
+public  void eliminaHoja(Vertex eliminar) {
     if (this.raiz == eliminar) {
         this.raiz = null;
         this.ultimoAgregado = null;
